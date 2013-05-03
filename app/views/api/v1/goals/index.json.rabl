@@ -1,11 +1,13 @@
-object @goals
+object false
 
-# Reuse the show template definition
-extends "api/v1/goals/show"
+extends "api/paging", :locals => { :list => @goals }
 
-attributes :id
+# node(:offset) {@goals.offset}
+# node(:count) {@goals.per_page}
+# node(:next) {next_page_url @goals}
+# node(:previous) {previous_page_url @goals}
+# partial("api/paging", :object => @goals)
 
-# Include a custom node
-# node :custom_field  @goals.each do |goal|
-#   [goal.id, goal.title].join(" ")
-# end
+child(@goals) do
+  extends "api/v1/goals/show"
+end
